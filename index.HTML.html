@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P. Mahalakshmi — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15172B;
+    --ink-soft:#5B5F79;
+    --line:#E4E6F1;
+    --bg:#FFFFFF;
+    --bg-tint:#F6F7FC;
+    --blue:#3452E1;
+    --violet:#7C3AED;
+    --blue-tint:#EEF1FE;
+    --radius-lg:20px;
+    --radius-sm:10px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Poppins',sans-serif;
+    margin:0;
+    line-height:1.2;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  section{padding:100px 0;}
+  .section-tint{background:var(--bg-tint);}
+  .kicker{
+    font-size:14px;
+    color:var(--blue);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .section-head{max-width:600px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.5vw,38px);}
+  .section-head .sub{margin-top:14px;color:var(--ink-soft);font-size:16px;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 28px;
+    border-radius:100px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    transition:all 200ms ease;
+    min-height:44px;
+  }
+  .btn-solid{background:var(--blue);color:#fff;}
+  .btn-solid:hover{background:#2941c4;transform:translateY(-2px);}
+  .btn-outline{border-color:var(--line);color:var(--ink);}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:var(--maxw);margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;}
+  .nav-links{display:flex;gap:36px;font-size:15px;font-weight:500;}
+  .nav-links a{color:var(--ink-soft);transition:color 150ms;}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;}
+  .mobile-drawer{
+    position:fixed;top:0;right:-100%;width:78%;max-width:320px;height:100%;
+    background:#fff;z-index:100;box-shadow:-8px 0 30px rgba(0,0,0,0.08);
+    padding:32px 28px;transition:right 280ms ease;
+  }
+  .mobile-drawer.open{right:0;}
+  .mobile-drawer a{display:block;padding:14px 0;font-size:17px;font-weight:500;border-bottom:1px solid var(--line);}
+  .drawer-close{background:none;border:none;font-size:22px;cursor:pointer;margin-bottom:24px;}
+  .overlay{position:fixed;inset:0;background:rgba(21,23,43,0.35);z-index:99;display:none;}
+  .overlay.show{display:block;}
+
+  /* HERO */
+  .hero{padding:96px 0 100px;}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  .hero-name{font-size:clamp(38px,5vw,58px);font-weight:700;}
+  .hero-role{
+    margin-top:14px;font-size:19px;color:var(--blue);font-weight:600;
+  }
+  .hero-intro{margin-top:22px;font-size:17px;color:var(--ink-soft);max-width:480px;}
+  .hero-ctas{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-visual{
+    position:relative;
+    aspect-ratio:1/1.05;
+    border-radius:28px;
+    background:linear-gradient(155deg,var(--blue) 0%, var(--violet) 100%);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .hero-visual .avatar-ring{
+    width:64%;aspect-ratio:1;border-radius:50%;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Poppins',sans-serif;font-weight:700;font-size:64px;color:var(--blue);
+    box-shadow:0 20px 60px rgba(0,0,0,0.18);
+  }
+  .hero-visual::before{
+    content:'';position:absolute;width:220px;height:220px;border:1.5px solid rgba(255,255,255,0.35);
+    border-radius:50%;top:-60px;right:-60px;
+  }
+  .hero-visual::after{
+    content:'';position:absolute;width:140px;height:140px;border:1.5px solid rgba(255,255,255,0.35);
+    border-radius:50%;bottom:-30px;left:-30px;
+  }
+
+  /* ABOUT */
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .about h2{font-size:clamp(26px,3.2vw,34px);}
+  .about-body{margin-top:20px;color:var(--ink-soft);font-size:16px;}
+  .about-highlight{
+    margin-top:28px;padding:20px 24px;border-left:3px solid var(--blue);
+    background:var(--blue-tint);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    font-family:'Poppins',sans-serif;font-size:16px;font-weight:500;
+  }
+  .about-goal{margin-top:24px;color:var(--ink-soft);font-size:16px;}
+
+  /* TIMELINE (education) */
+  .timeline-card{
+    border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:32px;display:flex;gap:22px;align-items:flex-start;
+    background:#fff;
+  }
+  .timeline-icon{
+    width:52px;height:52px;border-radius:14px;background:var(--blue-tint);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .timeline-icon svg{width:26px;height:26px;stroke:var(--blue);}
+  .timeline-card h4{font-size:19px;}
+  .timeline-card .tl-sub{color:var(--blue);font-weight:600;font-size:14px;margin-top:4px;}
+  .timeline-card .tl-meta{color:var(--ink-soft);font-size:14px;margin-top:10px;}
+  .status-pill{
+    display:inline-block;margin-top:14px;padding:5px 14px;border-radius:100px;
+    background:var(--blue-tint);color:var(--blue);font-size:13px;font-weight:600;
+  }
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .skill-group h4{font-size:15px;color:var(--ink-soft);font-weight:600;margin-bottom:16px;text-transform:none;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    padding:9px 16px;border-radius:10px;background:#fff;border:1px solid var(--line);
+    font-size:14px;font-weight:500;transition:all 180ms ease;
+  }
+  .chip:hover{background:var(--blue-tint);border-color:var(--blue);color:var(--blue);}
+  .chip.emerging{background:var(--blue-tint);border-color:var(--blue-tint);color:var(--blue);}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .service-card{
+    border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px;
+    background:#fff;transition:all 220ms ease;
+  }
+  .service-card:hover{border-color:var(--blue);box-shadow:0 12px 32px rgba(52,82,225,0.08);}
+  .service-icon{
+    width:44px;height:44px;border-radius:12px;background:var(--blue-tint);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+  }
+  .service-icon svg{width:22px;height:22px;stroke:var(--blue);}
+  .service-card h4{font-size:17px;margin-bottom:8px;}
+  .service-card p{color:var(--ink-soft);font-size:14.5px;}
+
+  /* PROJECT / PLACIVO */
+  .project-frame{
+    border-radius:28px;background:var(--ink);position:relative;overflow:hidden;
+    padding:64px 48px;color:#fff;
+  }
+  .project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:48px;}
+  .project-tag{color:#9AA5FF;font-size:14px;font-weight:600;}
+  .project-title{font-size:clamp(26px,3.4vw,36px);margin-top:10px;max-width:460px;}
+  .project-top p.desc{color:#C6C9DA;margin-top:16px;max-width:440px;font-size:15px;}
+  .screens-row{
+    display:flex;gap:20px;overflow-x:auto;padding-bottom:12px;
+    scroll-snap-type:x mandatory;
+  }
+  .screen{
+    flex:0 0 220px;height:400px;border-radius:22px;background:#fff;
+    scroll-snap-align:start;padding:16px;position:relative;
+    box-shadow:0 24px 50px rgba(0,0,0,0.35);
+  }
+  .screen .s-head{font-size:11px;color:var(--ink-soft);font-weight:600;margin-bottom:10px;}
+  .screen .s-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:14px;}
+  .bar{height:10px;border-radius:5px;background:var(--line);margin-bottom:8px;}
+  .bar.short{width:60%;}
+  .bar.blue{background:var(--blue);}
+  .mini-card{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;}
+  .mini-card .mc-icon{width:26px;height:26px;border-radius:7px;background:var(--blue-tint);margin-bottom:8px;}
+  .pill-blue{display:inline-block;background:var(--blue-tint);color:var(--blue);font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;}
+  .flow-row{display:flex;align-items:center;gap:0;margin-top:56px;flex-wrap:wrap;}
+  .flow-step{
+    flex:1;min-width:130px;text-align:left;padding:0 12px 0 0;
+  }
+  .flow-step .fs-num{color:#7C86FF;font-size:13px;font-weight:600;}
+  .flow-step .fs-label{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;margin-top:6px;}
+  .flow-arrow{color:#4C5480;font-size:18px;padding:0 8px;}
+  .project-cta{margin-top:48px;}
+
+  /* PROCESS */
+  .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;}
+  .process-step{padding:28px 24px;border-top:1px solid var(--line);}
+  .process-step:nth-child(-n+3){border-top:none;}
+  .process-step .p-num{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:var(--blue-tint);-webkit-text-stroke:1.5px var(--blue);color:transparent;}
+  .process-step h4{margin-top:14px;font-size:17px;}
+  .process-step p{margin-top:8px;color:var(--ink-soft);font-size:14.5px;}
+
+  /* JOURNEY */
+  .journey-box{
+    border-radius:var(--radius-lg);background:var(--blue-tint);padding:56px;
+    display:flex;justify-content:space-between;gap:40px;align-items:center;flex-wrap:wrap;
+  }
+  .journey-box h3{font-size:24px;max-width:380px;}
+  .journey-box p{color:var(--ink-soft);margin-top:14px;max-width:420px;font-size:15.5px;}
+  .journey-stats{display:flex;gap:32px;}
+  .journey-stat b{display:block;font-family:'Poppins',sans-serif;font-size:26px;color:var(--blue);}
+  .journey-stat span{font-size:13px;color:var(--ink-soft);}
+
+  /* CONTACT */
+  .contact-inner{
+    border-radius:28px;background:var(--ink);color:#fff;padding:80px 56px;text-align:left;
+  }
+  .contact-inner h2{font-size:clamp(28px,4vw,42px);max-width:520px;}
+  .contact-inner p{margin-top:18px;color:#C6C9DA;max-width:440px;font-size:16px;}
+  .contact-inner .btn-solid{margin-top:32px;}
+
+  footer{padding:36px 0;border-top:1px solid var(--line);}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:var(--ink-soft);font-size:14px;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .burger{display:block;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-visual{order:-1;max-width:280px;margin:0 auto;}
+    .about .wrap{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:1fr;}
+    .process-step{border-top:1px solid var(--line) !important;}
+    .process-step:first-child{border-top:none !important;}
+    .journey-box{flex-direction:column;align-items:flex-start;}
+    .contact-inner{padding:48px 28px;}
+    .project-frame{padding:40px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">P. Mahalakshmi</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="#contact" class="btn btn-outline" style="padding:10px 20px;font-size:14px;">Contact Me</a>
+      <button class="burger" aria-label="Open menu" onclick="toggleDrawer(true)">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="overlay" id="overlay" onclick="toggleDrawer(false)"></div>
+<div class="mobile-drawer" id="drawer">
+  <button class="drawer-close" onclick="toggleDrawer(false)">✕</button>
+  <a href="#home" onclick="toggleDrawer(false)">Home</a>
+  <a href="#about" onclick="toggleDrawer(false)">About</a>
+  <a href="#skills" onclick="toggleDrawer(false)">Skills</a>
+  <a href="#services" onclick="toggleDrawer(false)">Services</a>
+  <a href="#projects" onclick="toggleDrawer(false)">Projects</a>
+  <a href="#contact" onclick="toggleDrawer(false)">Contact</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <div>
+      <div class="hero-role">UI/UX Designer · AI-Assisted Design Enthusiast</div>
+      <h1 class="hero-name">P. Mahalakshmi</h1>
+      <p class="hero-intro">I'm a final-year B.Tech CSBS student passionate about UI/UX design and AI. My goal is to create simple, innovative, and user-friendly digital experiences.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-solid">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-ring">PM</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div>
+      <div class="kicker">About</div>
+      <h2>Beginning a design career, on purpose.</h2>
+      <p class="about-body">I'm a final-year B.Tech Computer Science and Business Systems student with a growing focus on UI/UX design and an interest in how AI can support the design process. I care about clarity over decoration — interfaces that people understand on the first try.</p>
+      <p class="about-goal">My goal is to grow into a UI/UX designer who blends design thinking with AI-assisted workflows, and to keep building products that solve problems people actually have.</p>
+      <div class="about-highlight">Designing simple experiences. Exploring AI. Solving real problems.</div>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+      </div>
+      <div>
+        <h4>B.Tech — Computer Science &amp; Business Systems</h4>
+        <div class="tl-sub">Solamalai College of Engineering</div>
+        <div class="tl-meta">Expected graduation: 2027</div>
+        <span class="status-pill">Final Year</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Skills</div>
+      <h2>What I bring to a design.</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>UI/UX &amp; Design</h4>
+        <div class="chip-row">
+          <span class="chip">UI/UX Design</span>
+          <span class="chip">User Research</span>
+          <span class="chip">Design Thinking</span>
+          <span class="chip">Visual Design</span>
+          <span class="chip">Responsive Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Design Tools</h4>
+        <div class="chip-row">
+          <span class="chip">Figma</span>
+          <span class="chip">Wireframing</span>
+          <span class="chip">Prototyping</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Emerging</h4>
+        <div class="chip-row">
+          <span class="chip emerging">AI-Assisted Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Services</div>
+      <h2>What I can do</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18M3 9h6"/></svg></div>
+        <h4>UI/UX Design</h4>
+        <p>Designing intuitive, user-friendly digital experiences from the ground up.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+        <h4>Mobile App Design</h4>
+        <p>Modern, responsive interfaces for mobile applications.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div>
+        <h4>Web Design</h4>
+        <p>Clean, engaging website interfaces built around the content.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+        <h4>Wireframing</h4>
+        <p>Structured low-fidelity layouts that establish hierarchy and flow.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></div>
+        <h4>Prototyping</h4>
+        <p>Interactive prototypes to demonstrate and test real user experiences.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z"/></svg></div>
+        <h4>AI-Assisted Design</h4>
+        <p>Using AI tools to explore ideas faster and support the design process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Featured Project</div>
+      <h2>Placivo — student placement &amp; career guidance app</h2>
+      <p class="sub">A mobile app that helps students find internships and jobs, build resumes, sharpen skills, and prepare for interviews — with placement updates in one place.</p>
+    </div>
+
+    <div class="project-frame">
+      <div class="project-top">
+        <div>
+          <div class="project-tag">Mobile App · UI/UX Case Study</div>
+          <div class="project-title">Bringing placement prep into one screen students actually open</div>
+          <p class="desc">Students juggle internship listings, resume drafts, and interview prep across scattered apps and PDFs. Placivo consolidates that into a single, guided experience.</p>
+        </div>
+      </div>
+
+      <div class="screens-row">
+        <div class="screen">
+          <div class="s-head">HOME</div>
+          <div class="s-title">Opportunities for you</div>
+          <div class="mini-card"><div class="mc-icon"></div><div class="bar" style="width:70%"></div><div class="bar short"></div><span class="pill-blue">Internship</span></div>
+          <div class="mini-card"><div class="mc-icon"></div><div class="bar" style="width:80%"></div><div class="bar short"></div><span class="pill-blue">Full-time</span></div>
+          <div class="mini-card"><div class="mc-icon"></div><div class="bar" style="width:65%"></div><div class="bar short"></div><span class="pill-blue">Internship</span></div>
+        </div>
+        <div class="screen">
+          <div class="s-head">RESUME BUILDER</div>
+          <div class="s-title">Build your resume</div>
+          <div class="bar blue" style="width:40%"></div>
+          <div class="bar" style="width:90%"></div>
+          <div class="bar" style="width:75%"></div>
+          <div class="bar" style="width:85%"></div>
+          <div class="bar short"></div>
+          <div style="margin-top:20px;" class="bar" style="width:60%"></div>
+        </div>
+        <div class="screen">
+          <div class="s-head">INTERVIEW PREP</div>
+          <div class="s-title">Practice questions</div>
+          <div class="mini-card"><div class="bar" style="width:90%"></div><div class="bar short"></div></div>
+          <div class="mini-card"><div class="bar" style="width:80%"></div><div class="bar short"></div></div>
+          <div class="mini-card"><div class="bar" style="width:70%"></div><div class="bar short"></div></div>
+        </div>
+        <div class="screen">
+          <div class="s-head">UPDATES</div>
+          <div class="s-title">Placement timeline</div>
+          <div class="mini-card"><div class="bar blue" style="width:50%"></div><div class="bar short"></div></div>
+          <div class="mini-card"><div class="bar" style="width:65%"></div><div class="bar short"></div></div>
+          <div class="mini-card"><div class="bar" style="width:55%"></div><div class="bar short"></div></div>
+        </div>
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-step"><div class="fs-num">Problem</div><div class="fs-label">Scattered tools</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-num">Research</div><div class="fs-label">Student interviews</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-num">User Flow</div><div class="fs-label">One guided path</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-num">Wireframes</div><div class="fs-label">Low-fidelity</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-num">UI Design</div><div class="fs-label">High-fidelity</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-num">Prototype</div><div class="fs-label">Interactive test</div></div>
+      </div>
+
+      <div class="project-cta">
+        <a href="#contact" class="btn btn-solid">View Case Study</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Process</div>
+      <h2>How I approach a design</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step"><div class="p-num">01</div><h4>Understand</h4><p>Understand the users and the problem before touching a screen.</p></div>
+      <div class="process-step"><div class="p-num">02</div><h4>Research</h4><p>Conduct user and competitor research to ground decisions in reality.</p></div>
+      <div class="process-step"><div class="p-num">03</div><h4>Ideate</h4><p>Generate and explore a range of possible solutions.</p></div>
+      <div class="process-step"><div class="p-num">04</div><h4>Wireframe</h4><p>Create structured layouts and map out user flows.</p></div>
+      <div class="process-step"><div class="p-num">05</div><h4>Design</h4><p>Develop polished, high-fidelity visual interfaces.</p></div>
+      <div class="process-step"><div class="p-num">06</div><h4>Prototype &amp; Test</h4><p>Build interactive prototypes and refine based on feedback.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint">
+  <div class="wrap">
+    <div class="journey-box">
+      <div>
+        <h3>Currently building my design journey</h3>
+        <p>I'm a final-year student actively developing practical UI/UX skills through hands-on projects, self-study, and design practice — not a finished designer, but one building toward it deliberately.</p>
+      </div>
+      <div class="journey-stats">
+        <div class="journey-stat"><b>2027</b><span>Graduating</span></div>
+        <div class="journey-stat"><b>1</b><span>Case study in progress</span></div>
+        <div class="journey-stat"><b>∞</b><span>Ideas to explore</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <h2>Let's create something meaningful.</h2>
+      <p>I'm a student designer looking to connect with recruiters, companies, and collaborators interested in thoughtful, user-centered design. Reach out — I'd love to hear from you.</p>
+      <a href="mailto:mahalakshmi@example.com" class="btn btn-solid">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>P. Mahalakshmi · UI/UX Designer</span>
+    <span>© 2026 P. Mahalakshmi. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleDrawer(open){
+    document.getElementById('drawer').classList.toggle('open', open);
+    document.getElementById('overlay').classList.toggle('show', open);
+  }
+</script>
+
+</body>
+</html>
